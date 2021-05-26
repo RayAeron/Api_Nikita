@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище OwndbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accs">
+          <Key>
+            <PropertyRef Name="id_acc" />
+          </Key>
+          <Property Name="id_acc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mylastname" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="myname" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="mypatronymic" Type="varchar" MaxLength="35" />
+          <Property Name="mylog" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="mypass" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="myuniquecode" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="mycodeusage" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="rights" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InfoTech">
+          <Key>
+            <PropertyRef Name="id_InfoTech" />
+          </Key>
+          <Property Name="id_InfoTech" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trainigpart_FK" Type="int" />
+          <Property Name="note_FK" Type="int" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="id_note" />
+          </Key>
+          <Property Name="id_note" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="heading" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="textbody" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="notedata" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timetables">
+          <Key>
+            <PropertyRef Name="id_timetable" />
+          </Key>
+          <Property Name="id_timetable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timetable_img" Type="image" />
+        </EntityType>
+        <EntityType Name="TrainingParts">
+          <Key>
+            <PropertyRef Name="id_trainigpart" />
+          </Key>
+          <Property Name="id_trainigpart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="auditorium" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="academic_subject" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="acc_FK" Type="int" />
+        </EntityType>
+        <Association Name="FK__InfoTech__note_F__08B54D69">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="InfoTech" Type="Self.InfoTech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="id_note" />
+            </Principal>
+            <Dependent Role="InfoTech">
+              <PropertyRef Name="note_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InfoTech__traini__07C12930">
+          <End Role="TrainingParts" Type="Self.TrainingParts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="InfoTech" Type="Self.InfoTech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingParts">
+              <PropertyRef Name="id_trainigpart" />
+            </Principal>
+            <Dependent Role="InfoTech">
+              <PropertyRef Name="trainigpart_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrainingP__acc_F__70DDC3D8">
+          <End Role="Accs" Type="Self.Accs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingParts" Type="Self.TrainingParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accs">
+              <PropertyRef Name="id_acc" />
+            </Principal>
+            <Dependent Role="TrainingParts">
+              <PropertyRef Name="acc_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище OwndbModelContainer">
+          <EntitySet Name="Accs" EntityType="Self.Accs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoTech" EntityType="Self.InfoTech" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetables" EntityType="Self.Timetables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingParts" EntityType="Self.TrainingParts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__InfoTech__note_F__08B54D69" Association="Self.FK__InfoTech__note_F__08B54D69">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="InfoTech" EntitySet="InfoTech" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InfoTech__traini__07C12930" Association="Self.FK__InfoTech__traini__07C12930">
+            <End Role="TrainingParts" EntitySet="TrainingParts" />
+            <End Role="InfoTech" EntitySet="InfoTech" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrainingP__acc_F__70DDC3D8" Association="Self.FK__TrainingP__acc_F__70DDC3D8">
+            <End Role="Accs" EntitySet="Accs" />
+            <End Role="TrainingParts" EntitySet="TrainingParts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OwndbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Accs">
+          <Key>
+            <PropertyRef Name="id_acc" />
+          </Key>
+          <Property Name="id_acc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mylastname" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="myname" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mypatronymic" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="mylog" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mypass" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="myuniquecode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mycodeusage" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rights" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TrainingParts" Relationship="Self.FK__TrainingP__acc_F__70DDC3D8" FromRole="Accs" ToRole="TrainingParts" />
+        </EntityType>
+        <EntityType Name="InfoTech">
+          <Key>
+            <PropertyRef Name="id_InfoTech" />
+          </Key>
+          <Property Name="id_InfoTech" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trainigpart_FK" Type="Int32" />
+          <Property Name="note_FK" Type="Int32" />
+          <NavigationProperty Name="Notes" Relationship="Self.FK__InfoTech__note_F__08B54D69" FromRole="InfoTech" ToRole="Notes" />
+          <NavigationProperty Name="TrainingParts" Relationship="Self.FK__InfoTech__traini__07C12930" FromRole="InfoTech" ToRole="TrainingParts" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="id_note" />
+          </Key>
+          <Property Name="id_note" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="heading" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="textbody" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notedata" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="InfoTech" Relationship="Self.FK__InfoTech__note_F__08B54D69" FromRole="Notes" ToRole="InfoTech" />
+        </EntityType>
+        <EntityType Name="Timetables">
+          <Key>
+            <PropertyRef Name="id_timetable" />
+          </Key>
+          <Property Name="id_timetable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timetable_img" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TrainingParts">
+          <Key>
+            <PropertyRef Name="id_trainigpart" />
+          </Key>
+          <Property Name="id_trainigpart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="auditorium" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="academic_subject" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="acc_FK" Type="Int32" />
+          <NavigationProperty Name="Accs" Relationship="Self.FK__TrainingP__acc_F__70DDC3D8" FromRole="TrainingParts" ToRole="Accs" />
+          <NavigationProperty Name="InfoTech" Relationship="Self.FK__InfoTech__traini__07C12930" FromRole="TrainingParts" ToRole="InfoTech" />
+        </EntityType>
+        <Association Name="FK__TrainingP__acc_F__70DDC3D8">
+          <End Role="Accs" Type="Self.Accs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingParts" Type="Self.TrainingParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accs">
+              <PropertyRef Name="id_acc" />
+            </Principal>
+            <Dependent Role="TrainingParts">
+              <PropertyRef Name="acc_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InfoTech__note_F__08B54D69">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="InfoTech" Type="Self.InfoTech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="id_note" />
+            </Principal>
+            <Dependent Role="InfoTech">
+              <PropertyRef Name="note_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InfoTech__traini__07C12930">
+          <End Role="TrainingParts" Type="Self.TrainingParts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="InfoTech" Type="Self.InfoTech" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingParts">
+              <PropertyRef Name="id_trainigpart" />
+            </Principal>
+            <Dependent Role="InfoTech">
+              <PropertyRef Name="trainigpart_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OwndbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accs" EntityType="Self.Accs" />
+          <EntitySet Name="InfoTech" EntityType="Self.InfoTech" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" />
+          <EntitySet Name="Timetables" EntityType="Self.Timetables" />
+          <EntitySet Name="TrainingParts" EntityType="Self.TrainingParts" />
+          <AssociationSet Name="FK__TrainingP__acc_F__70DDC3D8" Association="Self.FK__TrainingP__acc_F__70DDC3D8">
+            <End Role="Accs" EntitySet="Accs" />
+            <End Role="TrainingParts" EntitySet="TrainingParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InfoTech__note_F__08B54D69" Association="Self.FK__InfoTech__note_F__08B54D69">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="InfoTech" EntitySet="InfoTech" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InfoTech__traini__07C12930" Association="Self.FK__InfoTech__traini__07C12930">
+            <End Role="TrainingParts" EntitySet="TrainingParts" />
+            <End Role="InfoTech" EntitySet="InfoTech" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OwndbModelContainer" CdmEntityContainer="OwndbEntities">
+          <EntitySetMapping Name="Accs">
+            <EntityTypeMapping TypeName="OwndbModel.Accs">
+              <MappingFragment StoreEntitySet="Accs">
+                <ScalarProperty Name="id_acc" ColumnName="id_acc" />
+                <ScalarProperty Name="mylastname" ColumnName="mylastname" />
+                <ScalarProperty Name="myname" ColumnName="myname" />
+                <ScalarProperty Name="mypatronymic" ColumnName="mypatronymic" />
+                <ScalarProperty Name="mylog" ColumnName="mylog" />
+                <ScalarProperty Name="mypass" ColumnName="mypass" />
+                <ScalarProperty Name="myuniquecode" ColumnName="myuniquecode" />
+                <ScalarProperty Name="mycodeusage" ColumnName="mycodeusage" />
+                <ScalarProperty Name="rights" ColumnName="rights" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoTech">
+            <EntityTypeMapping TypeName="OwndbModel.InfoTech">
+              <MappingFragment StoreEntitySet="InfoTech">
+                <ScalarProperty Name="id_InfoTech" ColumnName="id_InfoTech" />
+                <ScalarProperty Name="trainigpart_FK" ColumnName="trainigpart_FK" />
+                <ScalarProperty Name="note_FK" ColumnName="note_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="OwndbModel.Notes">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="id_note" ColumnName="id_note" />
+                <ScalarProperty Name="heading" ColumnName="heading" />
+                <ScalarProperty Name="textbody" ColumnName="textbody" />
+                <ScalarProperty Name="notedata" ColumnName="notedata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timetables">
+            <EntityTypeMapping TypeName="OwndbModel.Timetables">
+              <MappingFragment StoreEntitySet="Timetables">
+                <ScalarProperty Name="id_timetable" ColumnName="id_timetable" />
+                <ScalarProperty Name="timetable_img" ColumnName="timetable_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingParts">
+            <EntityTypeMapping TypeName="OwndbModel.TrainingParts">
+              <MappingFragment StoreEntitySet="TrainingParts">
+                <ScalarProperty Name="id_trainigpart" ColumnName="id_trainigpart" />
+                <ScalarProperty Name="auditorium" ColumnName="auditorium" />
+                <ScalarProperty Name="academic_subject" ColumnName="academic_subject" />
+                <ScalarProperty Name="acc_FK" ColumnName="acc_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
